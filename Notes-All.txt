@@ -1,0 +1,1330 @@
+Day 1
+-------------
+What is Node js?
+Node.js is an open-source, cross-platform JavaScript runtime environment and library for running web applications outside the client's browser.
+
+What is cross-platform?
+A cross-platform application may run on Microsoft Windows, Linux, and macOS. Cross-platform software may run on many platforms, or as few as two.
+
+What is open-source?
+>Open source software (OSS) is software that is distributed with its source code, making it available for use, modification, and distribution with its original rights.
+
+> What is javascript Library?
+JavaScript libraries are collections of prewritten code snippets that can be used (and reused) to perform common JavaScript functions.
+
+>NodeJs = Runtime Environment + Javascript library
+
+> Feature of Nodejs
+1. High performance than JavaScript
+2. Cost effective
+3. Scalablity (Multiple user can use)
+4. Large community support
+5. Improves response time
+---------------------------------------------
+Companies 
+LinkedIn , Netflix, Uber , Paypal ,eBay, GoDaddy
+------------------------------------------------
+Frontend sw - HTML,Css, JavaScript
+Backend sw - Python, PHP, java, C# ...
+
+But Nodejs support both frontend and backend.
+---------------------------------------------- 
+console.log("Welcome to Nodejs");
+console is object name of Console class
+log is predefined method
+----------------------------------------------
+console.log("Welcome to Nodejs");
+console.log(process.argv);
+console.log(process.argv.slice(3));
+---------------------------------------------
+REPL Commands -
+>REPL stands for Read Evaluate Print Loop, 
+>it is a programming language environment (basically a console window) 
+>It takes single expression as user input and returns the result back to the console after execution. 
+> If you installed Nodejs , then you also use REPL commands.
+-----------------------------------------------
+npm (Node Package Manager)
+-----------------------
+>npm is the world's largest Software Registry.
+>Once we installed nodejs automatically npm also installed
+>Over 1.3 million packages are available in the main npm registry.
+>Opensource javascript packages all available in npm 
+>All npm packages are defined in files called package.json.
+>The content of package.json must be written in JSON.
+>At least two fields must be present in the definition file: name and version.
+----------------------------------------------------
+//Code To get OS information:
+
+const OS=require('node:os');
+console.log(OS.hostname());
+console.log(OS.machine());
+console.log(OS.release());
+console.log(OS.totalmem());
+console.log(OS.uptime());
+console.log(OS.version());
+
+// require is the predefined function to get packages
+// OS - default package / modules
+=========================================
+There are 3 module in Nodejs
+1. built in module - OS
+2. custom module - circle.js
+3. Third party module - we have to install
+========================================
+class Emp
+{
+    constructor(name,code)
+    {
+        this.name=name;
+        this.code=code;
+    }
+}
+const allEmp=[new Emp('aa','E001'),
+    new Emp('bb','E002'),
+    new Emp('cc','E003')
+];
+exports.getRandomNum=()=>{
+    return allEmp[Math.floor(Math.random()*allEmp.length)];
+}
+exports.allEmp=allEmp;
+---------------------------------
+In Test.js
+em=require('./Emp/index.js');
+console.log(em.getRandomNum());
+----------------------------------
+circle.js
+
+const {PI}=Math;
+exports.area=(r)=>PI*r**2;
+exports.circumference=(r)=>2*PI*r;
+
+app.js
+
+const cir =require('./circle.js');
+console.log(`Area of Circle is :  ${cir.area(4)}`);
+console.log(`circumference of Circle is :  ${cir.circumference(4)}`);
+
+----------------------------------
+>npm install lodash
+
+
+const La=require('lodash');
+
+const numbers=[1,2,3,4,5];
+const sum=La.sum(numbers);
+console.log(sum);
+La.shuffle(numbers).forEach(num => {console.log(num)});
+----------------------------------
+Emp/index.js
+------------
+class Emp
+{
+    constructor(name,code)
+    {
+        this.name=name;
+        this.code=code;
+    }
+}
+const allEmp=[new Emp('aa','E001'),
+    new Emp('bb','E002'),
+    new Emp('cc','E003')
+];
+exports.getRandomNum=()=>{
+    return allEmp[Math.floor(Math.random()*allEmp.length)];
+}
+exports.allEmp=allEmp;
+
+Test.js
+-----------
+em=require('./Emp/index.js');
+console.log(em.getRandomNum());
+-----------------------------------------
+Save the user defined module and use in another js file:
+>npm install --save Emp
+
+const {getRandomNum}=require('./Emp');
+const em=getRandomNum();
+console.log(`Selected Emp is : ${em.name}`);
+-----------------------------------------
+Day 2
+-----------------------------------------
+What is Asynchronization?
+Asynchronous refers to non-blocking operations that do not halt the execution of the program while waiting for a particular function to complete.
+
+Example :
+
+console.log('Start');
+    for(let i=1;i<=3;i++)
+    {
+        setTimeout(()=>{
+            console.log(`Async Loop : ${i}`);
+        },1000*i);
+    }
+    console.log('End');
+    //setTimeout() -predefined function for timer
+    // 1000 ms - 1 sec
+---------------------------------------------
+What is Synchronous?
+Synchronous refers to a blocking operation that halts the execution of the program until the operation is completed. 
+
+Example :
+console.log('Start');
+    for(let i=1;i<=3;i++)
+    {         
+            console.log(`Async Loop : ${i}`);        
+    }
+    console.log('End');
+---------------------------------------------
+Asynchronous with undefined value
+---------------------------------
+console.log('Start');
+console.log('Mid');
+function Loginuser(user)
+{
+    setTimeout(function(){            
+    for(let i=1;i<=3;i++)
+        {
+            console.log(user ,"user");
+        }        
+        return user;
+    },5000);
+    } 
+    console.log('End');
+    const obj=Loginuser("PES");
+    console.log(obj,"obj");
+---------------------------------------------
+What is promise in node js?
+
+>A promise is  an advancement of callbacks in Node.
+>A promise manage all asynchronous data activities. 
+>A JavaScript promise represents an activity that will either be completed or declined. 
+>If the promise is fulfilled, it is resolved; otherwise, it is rejected. 
+>Promises may be chained.
+ 
+// callbacks - nested function defining
+Asynchronous with out undefined value using Promise method
+-----------------------------------------
+console.log('Start');
+console.log('Mid');
+function Loginuser(user)
+{
+    return new Promise((resolve) =>{
+    setTimeout(function(){            
+    for(let i=1;i<=3;i++)
+        {
+            console.log(user ,"user");
+        }        
+        resolve (user);
+    },5000);
+    } );
+}
+    console.log('End');
+    const obj=Loginuser("PES");
+    console.log(obj,"obj");
+
+Real time example : Before get internet connection a program should not use the Database.
+----------------------------------------------------------------------
+Callback method
+-------------------
+Callback:
+>callback is a function that is passed as an argument to another function and is called when the parent function completes its task. 
+>Callbacks are used to handle asynchronous operations in Node.js and ensure that the results of an operation are available when they are needed.
+
+ function addNum(a,b,callk) // definining function
+{
+    const result=a+b;
+    callk(result); // calling inner function
+}
+addNum(5,10,function(res) // calling outer function
+{
+    console.log("The Result is : "+res);
+});
+----------------------------------------------------------------------
+Real time example for callback method:
+
+function greeting(name,delay,callk)
+{
+    setTimeout(function()   {
+        callk("Hello," + name + "!");
+    }, delay);
+}
+greeting("PES",5000,function(gre)
+{console.log(gre)});
+
+
+// Promise method also using callback and the inner function of Promise method is either resolve or reject.
+------------------------------------------------------------------
+Custom Promise using q Third Party Module
+-----------------------------------------
+> npm install q
+> npm install request
+
+const Q=require('q'); // Module to create Custom promise
+const req=require('request'); // To get request of URL from the user
+const get=Q.denodeify(req.get); // Using request method either get or Post
+
+get('https://www.google.com').then(res=>{ // then method used to resolve the operation
+    console.log(res);
+}).catch(error=>{ // catch method used to reject the Operation or give error message
+     
+    console.error(error);
+});
+// This program returns header information of response.
+-----------------------------------------
+Manage Records or data in database
+------------------------------------------
+Step 1 : Choose Database Sw  (MySQL , Oracle, MSSQL server, MongoDB, Postgrey SQL, MS Access, etc ...)
+MongoDB, Postgrey SQL - Trending db sw
+
+Step 2: Choose/Create Database 
+
+Step 3: Choose/Create Table
+
+Step 4: Insert records
+
+Step 5: Select records or Edit records or Delete records
+------------------------------------------
+Types of Database:
+1. Centralized database. - Product Inventory, Sales Data, Customer Information, Employee Records
+2. Distributed database. - Data is spread across multiple locations or servers. 
+3. Personal database.	 - Whats App chat , video and audio
+4. End-user database.    - Movie Collection Database, Fitness Tracking Database
+5. Commercial database.	 - Amazon , Flipkart
+6. NoSQL database.	 - MongoDB 
+7. Object oriented database.- PostgreSQL
+8. Relational database.  - MS SQL,MySQL DB
+------------------------------------------
+NoSQL database	 - MongoDB 
+NoSQL - Use only in json format .
+Tables are called collections
+Records are called documents.
+-----------------------------------------
+Introduction of MongoDB
+
+>MongoDB is developed by MongoDB Inc. 
+>MongoDB support scalability and flexibility for querying and indexing.
+>As a non-relational database, it can process structured, semi-structured, and unstructured data.
+>It uses a non-relational, document-oriented data model and a non-structured query language.
+>MongoDB is written and implemented in C++.
+-----------------------------------------
+Can use MongoDb in 3 ways:
+1. MongoDB atlas - Centerlized database
+2. MondoDB Compass - GUI 
+3. MondoDB Shell  - CBI (character based interface) 
+-----------------------------------------
+You have install MongoDB Server and MongoDB Compass (Client)
+Without install MongoDB Server you can't connect  MongoDB Compass. 
+------------------------------------------
+Sample document (record)
+
+{
+  "_id": {
+    "$oid": "66ff92992372db3dc8888eb8"
+  },
+  "empname":"bb",
+  "email":"bb@gmail.com"
+}
+
+
+// oid - object Id - MongoDB refer this objects ID
+// Document structure similar to Python nested dictionary
+// Can give various field name, datatype and number of fields in a collection.
+{
+  "_id": {
+    "$oid": "66ff94092372db3dc8888eb9"
+  },
+  "prodid":"P001",
+  "prodname":"Sony TV",
+  "qty":10,
+  "price":120000
+}
+-----------------------------------------------------------
+// SQL Query
+create table emp(eid int,ename varchar(50));
+insert into emp('aaa','aaa'); // returns error
+------------------------------------------------
+Python fullstack
+Java fullstack
+MEAN fullstack (MongoDB Expressjs Angular Nodejs)
+MERN fullstack (MongoDB Expressjs React Nodejs)
+---------------------------------------------------
+Clientside Validation
+> require field 
+> password and confirm password
+> proper email (start with alphabet , @., should be contain any space)
+> proper url (start with http or https , // , www , . )
+> To date should be after from date
+----------------------------------------------------
+AJAX - Asynchronized javascript and XML
+
+AJAX providing some user friendly controls , validation and verification options.
+----------------------------------------------------
+https://www.ajaxtoolkit.net/
+----------------------------------------------------
+Exercise :
+create a database named day2
+create a collection department within day2
+insert any 3 documents
+and edit, find and finally delete a document.
+------------------------------------------------------ 
+
+MongoDB Shell Installation steps
+-----------------------------------------
+Step 1: Download mongoDB Shell
+https://www.mongodb.com/try/download/shell
+
+Step 2: Add bin in environment variable
+
+step 3: Open Cmd
+
+Step 4: check installed version :
+mongosh --version
+----------------------------------------
+Shell Commands
+---------------------------------------------
+To run MongoDB shell  connecting to a database
+>mongosh  
+-----------------------------------------------------
+Create Database using MongoDB Shell:
+
+
+Command to check current db:
+>db
+
+Command to display available databases:
+>show dbs
+
+Command to create a Database:
+use databasename
+>use Example 
+(The command will create a new database if it doesn't exist, otherwise it will return the existing database.)
+
+(Note : Your created database (Example) is not present in list. 
+To display database, you need to insert at least one document into it.)
+---------------------------------------------------------------------------
+create a collection using MongoDB Shell:
+
+db.createCollection(name, options) 
+db.createCollection("Emp")  
+ 
+To check listed collections:
+>show collections
+
+To insert a single document:
+>db.Emp.insertOne({"fname":"AAA","empcode":"E001"})
+>db.Emp.insertOne({"empcode":"E002"})
+
+To insert multiple documents:
+>db.NewEmp.insertMany([{"fname":"cccc","empcode":"E003"},{"fname":"dddd","empcode":"E004"}])
+
+To confirm inserted records:
+>db.Emp.find()
+
+
+To confirm inserted records:
+>db.Emp.find({"fname":"AAA"})
+or
+>db.Emp.find()
+
+--------------------------------------------------
+https://shorturl.at/85U7P
+--------------------------------------------------
+// Using/Creating Webpages in NodeJs:
+Creating a simple Node.js server using Express.js
+
+>npm install express
+/*
+The "express" module is a popular web application framework for Node.js. 
+It provides a set of features for building web applications and APIs, 
+such as routing, middleware support, request handling, and templating.
+*/
+
+const express=require('express');
+const app=express();
+// / is a default route.
+
+app.get('/',(req,res)=>{ // getting requestion and send message to browser
+    res.send("Welcome to PES");
+}); 
+
+app.listen(3000,()=>{ // working in browser port 3000 
+    console.log('Server is running on port 3000');
+})
+
+// To run - http://localhost:3000/
+-------------------------------------------------------------------
+Using Html file in Nodejs
+-------------------------
+index.html
+------------
+<html>
+    <h1>This is sample HTML File</h1>
+</html>
+
+Page2.js
+------------
+const express=require('express');
+const app=express(); 
+
+app.get('/',(req,res)=>{ // getting requestion and send message to browser
+    res.sendFile(__dirname + '/index.html');
+}); 
+
+app.listen(3000,()=>{ // working in browser port 3000 
+    console.log('Server is running on port 3000');
+})
+-------------------------------------------------------------------
+user.html
+----------
+<html>
+    <head>
+        <title>
+        User Details
+    </head>
+</title>
+<body>
+    <form action="/submituser" method="post">
+        Enter User Name : <input type="text" name="user" />
+        <input type="submit" value="Click"/>
+    </form> 
+</body>
+</html>
+----------------------------------------------------
+user.js
+--------
+const bodyParser = require('body-parser');
+const express=require('express');
+const app=express();
+app.use(bodyParser.urlencoded({extended:true})); 
+let text;
+app.get('/',(req,res)=>{ // getting request  and send message to browser
+    res.sendFile(__dirname + '/user.html');
+}); 
+
+app.post('/submituser',(req,res)=>{  
+      text=req.body.user;
+    res.send(`Hello !!! ${text}`);
+}); 
+app.listen(3000,()=>{ // working in browser port 3000 
+    console
+.log('Server is running on port 3000');
+})
+----------------------------------------------------
+Day 3
+------------------------------
+3 types of errors:
+1. Compile time - missing semicolon, mismatched brackets
+2. runtime error - array index error, file not found
+3. Logical error - age is above 120
+--------------------------
+use of exception handling:
+
+If any runtime error occurs, the program should handle or give message to the user with out interrupt program execution.
+--------------------------
+Home.html
+--------------
+<html>
+  <body>
+    <form name="frm1" action="/insert" method="post">
+      Emp Name :    <input type="text" id="ename" name="ename" /><br>
+      Emp Email :    <input type="text" id="email" name="email" />
+      <br>
+    
+      <input type="hidden" value="" name="hdnbt" />
+      <input type="Submit"  value="Register" name="btnReg"
+            onclick="{document.frm1.hdnbt.value = this.value;
+              document.frm1.submit(); }"/>
+</form>
+<form name="frm2" action="/read" method="get">
+    <input type="Submit"  value="Read" name="btnRead"/>
+  </form>
+
+</body>
+</html>
+----------------------------------------------------------
+db.js
+--------- 
+const MongoClient=require('mongodb').MongoClient; // MongoClient - used to connect with either compass or shell
+// > npm install mongodb
+let database;
+async function getDatabase() {
+    const url="mongodb://localhost:27017/sample"; // 27017 - port name
+    try
+    {
+database=await MongoClient.connect(url);
+console.log('Connected with Database');
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+    return database;
+}
+module.exports={getDatabase}; 
+getDatabase(); // calling function
+
+// use of module.exports - to pass a variable or function from one js page to another js
+page
+
+// if you use await method the function should be async. 
+// await method similar to setTimeOut()
+--------------------------------------------------------
+crudform.js
+-------------
+const express=require('express');
+const bodyParser=require('body-parser');
+const dbo=require('./db');
+const app=express();
+let empname,email,result,hnd;
+app.use(bodyParser.urlencoded({extended:true})); 
+app.get('/',(req,res)=>{ // getting request  and send message to browser
+    res.sendFile(__dirname + '/Home.html');
+}); 
+app.post ('/insert',(req,res)=>{
+    empname=req.body.ename;
+    email=req.body.email;
+hnd=req.body.hdnbt;
+if(hnd=='Register')
+{
+    result=InsertDB();
+    if(result)
+    {
+        res.send("Record Inserted Successfully");
+    }
+}
+else if(hnd=='Update')
+    {
+        result=UpdateDB();
+        if(result)
+        {
+            res.send("Record Updated Successfully");
+        }
+    }
+});
+async function UpdateDB()
+{
+let database=await dbo.getDatabase();
+res=await database.db().collection('emp').updateOne(
+    {name:empname},
+       {$set:{ email:email}});
+return res;
+}
+app.get('/read',async(req,res)=>{ // getting request  and send message to browser
+    result=await ReadDB();
+    res.send(result);
+}); 
+    async function ReadDB()
+    {
+    let database=await dbo.getDatabase();
+    result=await database.db().collection('emp').find({}).toArray();
+    console.log(result,"result");
+    return result;
+}; 
+async function InsertDB()
+{
+let database=await dbo.getDatabase();
+res=await database.db().collection('emp').insertOne({name:empname,email:email});
+return res;
+}
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
+-------------------------------------------
+res=await database.db().collection('emp').deleteOne({name:empname});
+==============================================
+RestAPI Example
+
+emp/users.json
+---------------
+[
+    {"id":1,
+    "name":"aaa",
+    "email":"aaa@gmail.com"
+} ,
+{"id":2,
+    "name":"bbb",
+    "email":"bbb@gmail.com"
+} ,
+{"id":3,
+    "name":"ccc",
+    "email":"ccc@gmail.com"
+} 
+]
+------------------------------------------
+index.js
+-------------
+const express=require('express');
+const app=express();
+app.use(express.json());
+app.use(express.urlencoded({extended:true})); 
+let cnt=0;
+let users=require("./emp/users.json");
+
+app.get('/',(req,res)=>{ // getting request  and send message to browser
+    res.json(users);
+}); 
+app.get('/:id',(req,res)=>{ // getting request  and send message to browser
+ // parseInt - type casting - the default parameter type is string
+    const found=users.some(user=>user.id===parseInt(req.params.id));
+    if(found)
+    {   
+    res.json(users.filter(user=>user.id===parseInt(req.params.id)));
+    }
+    else
+    {
+        res.sendStatus(400);
+    }
+}); 
+
+app.post("/", (req, res) => {
+    const newUser = {  
+      id: req.body.id,  
+      name: req.body.name,  
+      email: req.body.email  
+    };    
+    if (!newUser.name || !newUser.email) {  
+      return res.sendStatus(400); 
+    }  
+    users.push(newUser);  
+    res.json(users);  
+  });
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
+===========================================================================
+Day 4
+=================
+Authentication - Giving user name and password (Login creaditials)
+
+Authorization -Giving permissions to particular file or resource
+=========================================================================
+MVC - One of the popular project structure pattern
+M - Model - Data
+V - View - Design
+C - Controller - Business logic
+----------------------
+Step 1:
+Create 3 folders models,controllers,routes.
+
+Step 2:
+Create User.js within models folder
+
+const mongoose = require('mongoose'); // connect with mongodb
+
+// collection schema (Table structure with datatype and constraints)
+// username , password - fields and unique - to give primary constraints
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    // add other fields as necessary
+});
+// User - Key , passing userSchema to the key
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+
+Step 3:
+install third party modules:
+
+npm install bcryptjs  cors  dotenv  express jsonwebtoken mongoose passport passport-jwt 
+
+Step 4:
+> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+// in 32 bit using hexa value generating a key
+
+Step 5:
+create .env file
+// to store environment configurations
+
+PORT=5000
+MONGODB_URI="mongodb://localhost:27017/Testauth"
+JWT_SECRET=f3c1ef59c858b20ba806ab9a0ce37bdf9654363940ae717ed46246197198c833
+
+
+Step 6:
+Create auth.js in controllers folder
+
+const bcrypt = require('bcryptjs'); // Cryptograpy - to encrypt and decrypt 
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
+// Registration Function
+const register = async (req, res) => {
+    const { username, password } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+        return res.status(400).send('Username already exists');
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const user = new User({ username, password: hashedPassword });
+
+    try {
+        await user.save();
+        res.status(201).send('User registered successfully');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+// Login Function
+const login = async (req, res) => {
+    const { username, password } = req.body;
+
+    // Find user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+        return res.status(401).send('Invalid credentials');
+    }
+
+    // Compare the password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(401).send('Invalid credentials');
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ message: 'Login successful', token });
+};
+
+module.exports = { register, login };
+
+Step 7:
+------------
+Create index.js in routes folder
+
+const express = require('express');
+const { register, login } = require('../controllers/auth');  // Import auth controllers
+const passport = require('passport');  // Import Passport for JWT authentication
+
+const router = express.Router();
+
+// Auth routes (register and login)
+router.post('/register', register); 
+
+module.exports = router;
+
+Step 8:
+--------------------
+create passport.js file
+
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User = require('./models/User');  // Without destructuring
+
+const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET
+};
+
+passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
+    try {
+        const user = await User.findById(jwt_payload.id);
+        if (user) {
+            return done(null, user);
+        }
+        return done(null, false);
+    } catch (error) {
+        return done(error, false);
+    }
+}));
+
+module.exports = passport;
+
+Step 9:
+-----------
+in server.js 
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+const routes = require('./routes');  // Import routes
+require('./passport');  // Import Passport config
+
+const app = express();
+console.log(process.env.MONGODB_URI);
+// Middleware
+app.use(cors());  // Enable CORS
+app.use(express.json());  // Parse JSON requests
+
+// Routes
+app.use('/api', routes);  // Prefix all routes with /api
+
+// MongoDB Connection
+mongoose.set('strictQuery', false); // Prepare for Mongoose 7
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+    }
+};
+
+// Connect to MongoDB
+connectDB();
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+const server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+    console.log(`Unhandled Error: ${err.message}`);
+    // Close server & exit process
+    server.close(() => process.exit(1));
+});
+
+
+Step 10:
+In postman
+----------------
+in postman
+
+post - http://localhost:5000/api/register 
+
+Body tab - raw and create below details:
+
+{
+    "username": "guest",
+    "password": "1234"
+}
+
+Step 11:
+---------------
+in index.js add below code:
+
+router.post('/login', login);
+
+
+Step 12:
+---------------
+In postman
+
+post - http://localhost:5000/api/login
+
+copy the token:
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDRjMTc5MjViNDc0YThiYzliZjlkNyIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJpYXQiOjE3MjgzNzAzNDUsImV4cCI6MTcyODM3Mzk0NX0.ZKqTj275XOCbhYg7F4LAN1ssYn-gmJgjUXJ8t3BbqAQ
+
+
+Step 13:
+-----------
+in index.js add below code:
+
+router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.send(`Hello ${req.user.username}, you are authorized!`);
+});
+
+in postman
+--------------
+get - http://localhost:5000/api/protected
+
+Headers Tab
+
+key 
+authorization
+
+value
+paste the token
+
+Authorization tab:
+Select Type Bearer Token
+
+paste token in right pane
+
+give send
+Now you ll get message like:
+Hello username, you are authorized!
+-------------------------------------------
+Advanced Node js 
+---------------------------------
+To kill running Port:
+in cmd
+
+>netstat -ano | findstr :3000
+This cmd will return process id.
+Then use that processid in the below cmd.
+>taskkill /PID process_id /F
+------------------------------------------- 
+// Create server
+
+require('http').createServer((req, res) => { 
+    res.end('Hello, world !\n')
+  }).listen(3000, () => {
+    console.log('Server is running ')
+  });
+
+---------------------------------------------------
+//crypto module to generate   random numbers - Generate OTP
+
+const crypto = require('crypto') 
+const random = crypto.randomInt(1000,9999)
+console.log('Random number:',random)
+==========================================================
+// Optimized code
+console.log('Random number:',require('crypto').randomInt(1000,9999))
+==========================================================
+//Find longest word
+// prompt-sync - get input from the user
+
+const prompt=require('prompt-sync')();
+ 
+  const str = prompt('Enter a string : ').split(' ');
+  let long = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i].length > long) {
+      long = str[i].length;
+    }
+  }
+
+console.log(long);
+==========================================================
+// To generate random password with specific length:
+
+const prompt=require('prompt-sync')();
+const no = parseInt(prompt('Enter a no : '))
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let password = '';
+
+  for (let i = 0; i < no; i++) {
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
+  } 
+
+console.log(password); 
+==========================================================
+// https://shorturl.at/aggeZ
+
+
+const emoji = {
+  Joy: 0x1F602,
+  Sadness: 0x1F625,
+  Anger: 0x1F620,
+  Fear: 0x1F628,
+  Surprise: 0x1F973,
+  Disgust: 0x1F605,// --
+  Excitement: 0x1F605,
+  Love: 0x1F605,
+  Trust: 0x1F605,
+  Anticipation: 0x1F605,
+  Guilt: 0x1F605,
+  Shame: 0x1F605,
+  Jealousy: 0x1F605,
+  Pride: 0x1F605,
+  Gratitude: 0x1F605,
+  Hope: 0x1F605,
+  Envy: 0x1F605,
+  Contentment: 0x1F605,
+  Confusion: 0x1F605,
+  Frustration: 0x1F605,
+}
+
+const prompt = require('prompt-sync')();
+console.log(String.fromCodePoint(emoji[prompt("Enter Emoji Name : ")]));
+==================================================================================
+Day 5
+-------
+Home.html
+---------
+<!-- For submit a file image  enctype="multipart/form-data" attribute in form is Mandatory. -->
+
+<html>
+<head>
+    <title>Image Streaming</title>
+</head>
+<body>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+        <!-- <input type="file" name="image" accept="image/*"> -->
+ 	 < input type="file" name="f1" accept=".xlsx" />  
+        <input type="submit" value="Upload">
+    </form>
+
+</body>
+</html>
+
+index.js
+----------
+const express = require('express');
+const multer = require('multer');
+const app = express();
+ 
+const upload = multer({ storage: multer.memoryStorage() });
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/home.html');
+});
+/*
+app.post('/upload', upload.single('image'), (req, res) => {
+  const fb = req.file.buffer;
+  res.writeHead(200, {
+    'Content-Type': 'image/png', // Modify content type based on your needs
+    'Content-Length': fb.length
+  });
+  res.end(fb);
+});
+*/
+app.post('/upload', upload.single('f1'), (req, res) => {
+  const fb = req.file.buffer;
+  res.writeHead(200, {
+    'Content-Type': '.xlsx', // Modify content type based on your needs
+    'Content-Length': fb.length
+  });
+  res.end(fb);
+
+app.listen(3000, () => {
+  console.log(`Server is listening on port `);
+});
+
+
+https://shorturl.at/G5lfz
+==================================================================
+Sample external API
+
+https://api.github.com/users
+https://reqres.in/
+
+-----------------------------------
+index.html
+---------- 
+<html >
+<head>    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul class="list-container">
+    </ul>
+    <script src="script.js"></script>
+</body>
+</html>
+------------
+script.js
+------------
+fetch('https://reqres.in/api/users')
+.then(response => response.json())
+.then(json => { 
+    const markup = json.data.map(el => {
+        return `
+        <li class="card-container">
+            <div class="image-container">
+              <img class="round" src="${el.avatar}">    
+            </div>
+             <div class="name-container"> 
+                 <span class="firstName">${el.first_name}</span>
+                 <span class="lastName">${el.last_name}</span>                
+             </div> 
+             <p class="email">${el.email}</p>  
+            </li>        `
+    }); 
+    document.querySelector('.list-container').innerHTML = markup.join('');   
+})
+-------------------------------------------------------------
+https://pastebin.com/si5gdxdz
+
+Project Title URL:
+
+https://shorturl.at/PVqYx
+
+-------------------------------------------------------------
+File Stream
+--------------------------
+//Stream - Flow of data - Source (keyboard , file ) - destination (Monitor, printer, file,zip)
+
+const fs = require('fs');
+const zlib = require('zlib');
+const prompt=require('prompt-sync')(); 
+const fn=prompt("Enter Filename with path : ");
+
+const rs = fs.createReadStream(fn);
+const cs = zlib.createGzip();
+const zfn=prompt("Enter Filename to zip : ");
+const ws = fs.createWriteStream(zfn+'.gz');
+
+rs.pipe(cs).pipe(ws);
+----------------------------------------------------
+home.html
+
+<html>
+ 
+  <body>
+    <form action="/writefile" method="post">
+       Enter File Name:      <input type="text" id="text" name="fname" /><br>
+       Enter File content :      <textarea id="text" name="cname" rows="5"  ></textarea><br>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
+
+P7.js
+-----
+>npm install fs express
+
+const fs = require('fs');
+const express = require('express');
+const bodyParser = require('body-parser');  
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/home.html');
+});
+
+app.post('/writefile', (req, res) => {    
+    const ws = fs.createWriteStream(req.body.fname);    // file name 
+    ws.write(req.body.cname); // Write some data to the stream
+    ws.end();
+    ws.on('finish', () => { // Listen for the 'finish' event to be notified when the write operation is complete
+        console.log('Write operation complete.');
+      });
+  });
+   
+app.listen(3000, () => {
+    console.log('Server is running on porttt 3000');
+  });
+  
+-------------------------------------------------------
+const fs = require('fs');
+const express = require('express');
+const bodyParser = require('body-parser');  
+let fna,content;
+const app = express()
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/me', (req, res) => {
+  res.sendFile(__dirname + '/mychat.html');
+});
+
+app.get('/friend', (req, res) => {
+    res.sendFile(__dirname + '/friendchat.html');
+  });
+  app.post('/writefileme', (req, res) => {
+    fna=req.body.fname;
+    const ws =  fs.createWriteStream('chat.log', { flags: 'a' });
+    content=req.body.cname;
+    ws.write('Me : '+ content + "\n"); 
+    ws.end();
+    ws.on('finish', () => { 
+        console.log('Write operation complete.');
+      });
+  });
+  app.post('/writefilefri', (req, res) => {
+    fna=req.body.fname;
+    const ws =  fs.createWriteStream('chat.log', { flags: 'a' });
+    content=req.body.cname;
+    ws.write('You : '+ content + "\n"); 
+    ws.end();
+    ws.on('finish', () => { 
+        console.log('Write operation complete.');
+      });
+  });
+  
+app.listen(3000, () => {
+    console.log('Server is running on porttt 3000');
+  });
+----------------------------------------------------------------
+
+//audio/video data is read from a file into a buffer and then streamed to clients upon request.
+const fs = require('fs');
+const http = require('http');
+//const fn = fs.readFileSync('Manoj.mp3');
+const fn= fs.readFileSync('Manoj.mp4');
+
+const server = http.createServer((req, res) => {console.log('Client connected');
+  //res.setHeader('Content-Type', 'audio/mpeg');  
+  res.setHeader('Content-Type', 'video/mp4'); //for video streaming
+  res.write(fn); // Write the audio buffer to the response stream
+  res.end();
+});
+ 
+server.listen(3000, () => {
+  console.log(`Server listening on port`);
+});
+
+----------------------------------------------------------------
+//Reverse a String:
+
+const prompt=require('prompt-sync')();
+console.log(prompt('Enter a string : ').split('').reverse().join(''));
+---------------------------------------------------------------
+// To create Titlecase
+
+const prompt=require('prompt-sync')();
+const str = prompt('Enter a string : ')
+
+// userdefined parameterized function
+function titlecase(str) {
+  const words = str.split(' ');
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+  }
+  return words.join(' ');
+}
+
+console.log(titlecase(str)); 
+-------------------------------------------------------------
+const prompt=require('prompt-sync')();
+let Li = [];  
+const no=parseInt(prompt("Enter No : "));
+
+for (var i = 1; i <= no; i++) {
+    Li.push(prompt("Enter Name : ")) //Add some names to the list
+}
+  for (let i = Li.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [Li[i], Li[j]] = [Li[j], Li[i]];
+  }
+console.log(Li);
+-------------------------------------------------------------
+//To get Drives Information :
+
+const diskusage = require('diskusage');
+getDiskSpace('C:\\');
+
+async function getDiskSpace(path) {   
+    const info = await diskusage.check(path);
+    console.log('Total space:',(info.total/(1024*1024*1024)).toFixed(2),' GB');
+    console.log('Available space:',(info.available/(1024*1024*1024)).toFixed(2),' GB');
+    console.log('Used space:',(info.total/(1024*1024*1024)).toFixed(2)-(info.available/(1024*1024*1024)).toFixed(2),' GB');
+    return ;   
+}
+-------------------------------------------------------------
+// To get List of drives.
+const  { execSync }  = require('child_process');  
+
+const drives = execSync('wmic logicaldisk get caption').toString().trim().split('\n').slice(1).map(line => line.trim());
+console.log('Local Disk Drives:', drives); 
+ 
+for (const drive of drives) {
+  console.log(drive);   
+}
+-------------------------------------------------------------
+// To get List of Folders and Files
+
+const fs=require('fs');
+const path=require('path')
+const prompt=require('prompt-sync')();
+const dir=prompt("Enter Drive and Folder Name : ");
+const FolderList=fs.readdirSync(dir).filter(file => fs.statSync(path.join(dir,file)).
+isDirectory());
+console.log("List Of Folders: \n ",FolderList);
+const FileList=fs.readdirSync(dir).filter(file => fs.statSync(path.join(dir,file)).
+isFile());
+console.log("List Of Files: \n ",FileList);
+-------------------------------------------------------------
